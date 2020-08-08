@@ -67,7 +67,7 @@ public class Player : StateBehaviour, IDamagable
         if ((transform.position.x > settings.PlayerBounds.y && direction > 0) || (transform.position.x < settings.PlayerBounds.x && direction < 0))
             return;
 
-        transform.Translate(Vector3.right * Time.deltaTime * direction * speed, Space.Self);
+        transform.Translate(Vector3.right * Time.deltaTime * direction * speed, Space.World);
     }
 
     public void TakeDamage()

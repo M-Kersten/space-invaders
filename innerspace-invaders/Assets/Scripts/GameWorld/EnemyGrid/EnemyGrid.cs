@@ -9,22 +9,19 @@ public class EnemyGrid : StateBehaviour
     private Enemy enemyPrefab;
 
     [SerializeField]
-    private LevelSettings settings;
+    private LevelCollection settings;
     [SerializeField]
     private GameSettings gameSettings;
 
     [SerializeField]
     private Transform enemyRoot;
-
-    [SerializeField]
-    private float offset;
-
+      
     private Enemy[,] activeEnemies = new Enemy[0,0];
     private GameObject gridInstance;
     private float direction;
     private HashSet<Enemy> matchedEnemies = new HashSet<Enemy>();
 
-    private int TotalEnemies => (int)(settings.GridCollumns * settings.GridRows);
+    private int TotalEnemies => (int)(settings.Levels[settings.CurrentLevel].GridCollumns * settings.Levels[settings.CurrentLevel].GridRows);
 
     private void Update()
     {
@@ -41,18 +38,18 @@ public class EnemyGrid : StateBehaviour
             direction *= -1;
             gridInstance.transform.Translate(Vector3.back, Space.Self);
         }
-        gridInstance.transform.Translate((Vector3.right * Time.deltaTime * direction * settings.EnemySpeed.Evaluate((float)((float)ActiveEnemies() / (float)TotalEnemies))), Space.Self);
+        gridInstance.transform.Translate((Vector3.right * Time.deltaTime * direction * settings.Levels[settings.CurrentLevel].EnemySpeed.Evaluate((float)((float)ActiveEnemies() / (float)TotalEnemies))), Space.Self);
     }
 
     private void SpawnGrid()
     {
         gridInstance = Instantiate(new GameObject(), enemyRoot);
         
-        activeEnemies = new Enemy[settings.GridCollumns, settings.GridRows];
+        activeEnemies = new Enemy[settings.Levels[settings.CurrentLevel].GridCollumns, settings.Levels[settings.CurrentLevel].GridRows];
 
-        for (int y = 0; y < settings.GridRows; y++)
+        for (int y = 0; y < settings.Levels[settings.CurrentLevel].GridRows; y++)
         {
-            for (int x = 0; x < settings.GridCollumns; x++)
+            for (int x = 0; x < settings.Levels[settings.CurrentLevel].GridCollumns; x++)
             {
                 CreateNewEnemy(x, y);
             }
@@ -68,14 +65,12 @@ public class EnemyGrid : StateBehaviour
     private int ActiveEnemies()
     {
         int returnAmount = 0;
-        for (int x = 0; x < settings.GridCollumns; x++)
+        for (int x = 0; x < settings.Levels[settings.CurrentLevel].GridCollumns; x++)
         {
-            for (int y = 0; y < settings.GridRows; y++)
+            for (int y = 0; y < settings.Levels[settings.CurrentLevel].GridRows; y++)
             {
                 if (activeEnemies[x,y] != null)
-                {
                     returnAmount++;
-                }
             }
         }
         return returnAmount;
@@ -83,11 +78,11 @@ public class EnemyGrid : StateBehaviour
 
     private Enemy CreateNewEnemy(int x, int y)
     {
-        Vector3 enemyPosition = new Vector3(x * (enemyPrefab.transform.localScale.x * offset), 0, y * (enemyPrefab.transform.localScale.y * offset));
+        Vector3 enemyPosition = new Vector3(x * (enemyPrefab.transform.localScale.x * settings.Levels[settings.CurrentLevel].gridGapSize), 0, y * (enemyPrefab.transform.localScale.y * settings.Levels[settings.CurrentLevel].gridGapSize));
         Enemy newEnemy = Instantiate(enemyPrefab.gameObject, gridInstance.transform.position + enemyPosition, enemyPrefab.gameObject.transform.rotation, gridInstance.transform).GetComponent<Enemy>();
 
         activeEnemies[x, y] = newEnemy;
-        newEnemy.Initialize(new Vector2Int(x, y), settings);
+        newEnemy.Initialize(new Vector2Int(x, y), settings.Levels[settings.CurrentLevel]);
         newEnemy.CurrentlyShooting = y == 0;
         newEnemy.EnemyKilled += KillNeighbours;
         return newEnemy;
@@ -99,7 +94,7 @@ public class EnemyGrid : StateBehaviour
         activeEnemies[enemy.Index.x, enemy.Index.y] = null;
 
         // enable firing for the closest enemy to the player in the collumn
-        for (int y = 0; y < settings.GridRows; y++)
+        for (int y = 0; y < settings.Levels[settings.CurrentLevel].GridRows; y++)
         {
             if (activeEnemies[enemy.Index.x, y] != null)
             {
@@ -120,9 +115,12 @@ public class EnemyGrid : StateBehaviour
             PointManager.Instance.AddScore(matchedEnemies.Count * CustomMaths.CalculateFibonacci(matchedEnemies.Count) * 10);
             matchedEnemies.Clear();
 
-            if (ActiveEnemies() <= 1)
-                SetState?.Invoke(GameState.Stopped);
-            
+            if (ActiveEnemies() <= 0)
+            {
+                settings.CurrentLevel++;
+                ResetGrid();
+                SpawnGrid();
+            }            
             return;
         }
 
@@ -139,7 +137,7 @@ public class EnemyGrid : StateBehaviour
             for (int y = checkEnemy.Index.y - 1; y <= checkEnemy.Index.y + 1; y++)
             {
                 // avoid cycling through cells outside of grid scope or the current cell
-                if (x >= 0 && y >= 0 && x < settings.GridCollumns && y < settings.GridRows && activeEnemies[x, y] != null && activeEnemies[x, y].Index != checkEnemy.Index && (x == checkEnemy.Index.x || y == checkEnemy.Index.y))
+                if (x >= 0 && y >= 0 && x < settings.Levels[settings.CurrentLevel].GridCollumns && y < settings.Levels[settings.CurrentLevel].GridRows && activeEnemies[x, y] != null && activeEnemies[x, y].Index != checkEnemy.Index && (x == checkEnemy.Index.x || y == checkEnemy.Index.y))
                 {
                     // if only valid/linkable cells should be returned, skip the current cell if invalid
                     if (activeEnemies[x, y].EnemyColor != checkEnemy.EnemyColor)
@@ -155,12 +153,14 @@ public class EnemyGrid : StateBehaviour
     {
         if (CurrentState == GameState.Lost && state == GameState.Playing)
         {
+            settings.CurrentLevel = 0;
             ResetGrid();
             SpawnGrid();
             direction = 1;
         }
         else if (CurrentState == GameState.Stopped && state == GameState.Playing)
         {
+            settings.CurrentLevel = 0;
             SpawnGrid();
             direction = 1;
         }

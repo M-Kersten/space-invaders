@@ -8,6 +8,7 @@ public class LevelSettings : ScriptableObject
     public int GridCollumns;
     public AnimationCurve EnemySpeed;
     public int InitialEnemyHealth;
+    public float gridGapSize;
     [Header("Visual")]
     public Color[] EnemyColors;
 }
