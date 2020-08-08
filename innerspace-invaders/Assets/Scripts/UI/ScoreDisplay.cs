@@ -8,6 +8,8 @@ public class ScoreDisplay : MonoBehaviour
 
     private void Awake() => scoreText = GetComponent<TextMeshProUGUI>();
 
+    private void OnEnable() => UpdateDisplay(PointManager.Instance.CurrentScore);
+
     public void UpdateDisplay(int score)
     {
         if (scoreText == null)

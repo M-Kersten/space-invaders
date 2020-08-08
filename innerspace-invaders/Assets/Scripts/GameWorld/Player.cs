@@ -77,12 +77,12 @@ public class Player : StateBehaviour, IDamagable
 
     public void Die()
     {
-        SetState?.Invoke(GameState.Stopped);
+        SetState?.Invoke(GameState.Lost);
     }
 
-    public override void UpdateState(GameState state)
+    public override void UpdateState(GameState state, GameState oldState)
     {
-        if (CurrentState == GameState.Stopped && state == GameState.Playing)
+        if ((CurrentState == GameState.Stopped || CurrentState == GameState.Lost) && state == GameState.Playing)
         {
             Health = settings.InitialPlayerHealth;
             transform.position = startingPosition;

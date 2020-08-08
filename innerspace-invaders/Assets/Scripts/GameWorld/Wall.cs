@@ -42,9 +42,9 @@ public class Wall : StateBehaviour, IDamagable
         Health--;
     }
 
-    public override void UpdateState(GameState state)
+    public override void UpdateState(GameState state, GameState oldState)
     {
-        if (CurrentState == GameState.Stopped && state == GameState.Playing)
+        if ((CurrentState == GameState.Stopped || CurrentState == GameState.Lost) && state == GameState.Playing)
         {
             transform.localPosition += Vector3.down * 2;
             LeanTween.moveLocalY(gameObject, 0, .5f).setEase(LeanTweenType.easeInOutQuart);

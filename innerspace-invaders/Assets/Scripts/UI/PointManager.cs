@@ -24,12 +24,13 @@ public class PointManager : StateBehaviour
     /// <summary>
     /// Current score the player has aquired in this level
     /// </summary>
-    private int currentScore
+    public int CurrentScore
     {
         get { return score; }
-        set
+        private set
         {
-            score = value; 
+            score = value;
+            UpdateHighScore();
             foreach (ScoreDisplay display in displays)
                 display.UpdateDisplay(score); 
         } }
@@ -52,21 +53,31 @@ public class PointManager : StateBehaviour
             HighScoreUpdated?.Invoke(PlayerPrefs.GetInt(Constants.KEY_HIGHSCORE));
     }
 
-    public override void UpdateState(GameState state)
+    public override void UpdateState(GameState state, GameState oldState)
     {
-        if (state == GameState.Stopped)
-        {
-            SaveScore();
+        if (state == GameState.Stopped || state == GameState.Lost)
+            UpdateHighScore();
+        if (state == GameState.Playing && oldState != GameState.Paused)
             ResetScore();
+    }
+
+    public int HighScore
+    {
+        get
+        {
+            int returnScore = 0;
+            if (PlayerPrefs.HasKey(Constants.KEY_HIGHSCORE))
+                returnScore = PlayerPrefs.GetInt(Constants.KEY_HIGHSCORE);
+            return returnScore;
         }
     }
 
     /// <summary>
     /// Saves the current score as a new highscore when it's higher than the current highscore
     /// </summary>
-    public void SaveScore()
+    private void UpdateHighScore()
     {
-        if (!PlayerPrefs.HasKey(Constants.KEY_HIGHSCORE) || PlayerPrefs.GetInt(Constants.KEY_HIGHSCORE) < score)
+        if (HighScore < score)
         {
             PlayerPrefs.SetInt(Constants.KEY_HIGHSCORE, score);
             HighScoreUpdated?.Invoke(PlayerPrefs.GetInt(Constants.KEY_HIGHSCORE));
@@ -75,9 +86,9 @@ public class PointManager : StateBehaviour
     /// <summary>
     /// Reset current level score
     /// </summary>
-    public void ResetScore() => currentScore = 0;
+    public void ResetScore() => CurrentScore = 0;
     /// <summary>
     /// Increments the score
     /// </summary>
-    public void AddScore(int scoreAmount) => currentScore += scoreAmount;    
+    public void AddScore(int scoreAmount) => CurrentScore += scoreAmount;
 }

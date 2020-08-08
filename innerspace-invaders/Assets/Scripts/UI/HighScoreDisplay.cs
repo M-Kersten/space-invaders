@@ -12,7 +12,8 @@ public class HighScoreDisplay : MonoBehaviour
     }
 
     private void OnEnable()
-    {        
+    {
+        UpdateDisplay(PointManager.Instance.HighScore);
         PointManager.Instance.HighScoreUpdated += UpdateDisplay;
     }
 

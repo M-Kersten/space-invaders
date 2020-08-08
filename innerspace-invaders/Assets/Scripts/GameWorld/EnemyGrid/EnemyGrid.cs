@@ -151,14 +151,20 @@ public class EnemyGrid : StateBehaviour
         return neighbours;
     }
 
-    public override void UpdateState(GameState state)
+    public override void UpdateState(GameState state, GameState oldState)
     {
-        if (CurrentState == GameState.Stopped && state == GameState.Playing)
+        if (CurrentState == GameState.Lost && state == GameState.Playing)
+        {
+            ResetGrid();
+            SpawnGrid();
+            direction = 1;
+        }
+        else if (CurrentState == GameState.Stopped && state == GameState.Playing)
         {
             SpawnGrid();
             direction = 1;
         }
-        if (CurrentState != GameState.Stopped && state == GameState.Stopped)
+        else if (CurrentState != GameState.Stopped && state == GameState.Stopped)
             ResetGrid();
 
         foreach (Enemy enemy in activeEnemies)

@@ -14,13 +14,14 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Button[] playButtons;
     [SerializeField]
-    private Button stopButton;
+    private Button[] stopButtons;
     [SerializeField]
     private Button quitButton;
 
     private void Start()
     {
-        stopButton.onClick.AddListener(StopGame);
+        foreach (Button button in stopButtons)
+            button.onClick.AddListener(StopGame);
         quitButton.onClick.AddListener(Application.Quit);
         foreach (Button button in playButtons)
             button.onClick.AddListener(PlayGame);
@@ -39,7 +40,7 @@ public class UIManager : MonoBehaviour
     {
         if (stateMachine.CurrentState == GameState.Playing)
             stateMachine.SetState(GameState.Paused);
-        else if (stateMachine.CurrentState != GameState.Playing)
+        else if (stateMachine.CurrentState == GameState.Paused)
             stateMachine.SetState(GameState.Playing);
     }
 }

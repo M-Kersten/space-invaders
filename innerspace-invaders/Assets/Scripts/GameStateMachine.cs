@@ -35,12 +35,12 @@ public class GameStateMachine : MonoBehaviour
 
     public void SetState(GameState state)
     {
-        CurrentState = state;
-
         foreach (StateBasedObject obj in stateBasedObjects)
-            obj.stateObject.SetActive(obj.activeStates.HasFlag(CurrentState));
+            obj.stateObject.SetActive(obj.activeStates.HasFlag(state));
         
         foreach (StateBehaviour item in stateChangers)     
-            item.UpdateState(CurrentState);        
+            item.UpdateState(state, CurrentState);
+
+        CurrentState = state;
     }
 }
