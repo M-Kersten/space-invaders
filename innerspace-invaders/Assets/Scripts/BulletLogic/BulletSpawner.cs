@@ -4,9 +4,31 @@ public class BulletSpawner : MonoBehaviour
 {
     [SerializeField]
     private BulletType bulletType;
+    [SerializeField]
+    private float cooldownDuration;
+
+    private float timer;
+    private bool readyToFire;
+
+    private void Update()
+    {
+        if (!readyToFire)
+        {
+            timer += Time.deltaTime;
+            if (timer >= cooldownDuration)
+            {
+                timer = 0;
+                readyToFire = true;
+            }
+        }
+    }
 
     public void Shoot()
     {
+        if (!readyToFire)
+            return;
+        readyToFire = false;
+
         IBullet shot;
         if (bulletType == BulletType.Player)
             shot = PlayerBulletPool.Instance.GetPooledObject();        

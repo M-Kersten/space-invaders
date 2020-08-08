@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public abstract class Bullet : MonoBehaviour, IBullet
 {
@@ -6,6 +7,8 @@ public abstract class Bullet : MonoBehaviour, IBullet
     private float speed;
     [SerializeField]
     private float maxLifeTime;
+
+    public Action Exploded;
 
     private float currentLifeTime;
 
@@ -34,6 +37,6 @@ public abstract class Bullet : MonoBehaviour, IBullet
 
     public virtual void Explode()
     {
-        Debug.Log("explode");
+        Exploded?.Invoke();
     }
 }

@@ -12,10 +12,9 @@ namespace Invaders.Tools
     {
         #region Playerprefs
         /// <summary>
-        /// Max level the player has reached, used to lock subsequent levels
+        /// Max score the player has reached
         /// </summary>
-        public const string STARSCOLLECTED = "StarsCollected";
-        public const string MUTED = "MuteAudio";
+        public const string KEY_HIGHSCORE = "highscore";
         #endregion
         #region Tags
         public const string BULLET = "Bullet";

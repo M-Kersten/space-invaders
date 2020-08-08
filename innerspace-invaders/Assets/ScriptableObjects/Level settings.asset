@@ -13,7 +13,44 @@ MonoBehaviour:
   m_Name: Level settings
   m_EditorClassIdentifier: 
   GridRows: 5
-  GridCollumns: 5
-  EnemySpeed: 5
-  EnemyColors: []
+  GridCollumns: 10
+  EnemySpeed:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 5
+      inSlope: -0.36971804
+      outSlope: -0.36971804
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.28676364
+    - serializedVersion: 3
+      time: 0.38240194
+      value: 4.970519
+      inSlope: -0.04865157
+      outSlope: -0.04865157
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.23432887
+    - serializedVersion: 3
+      time: 0.99508667
+      value: 0.50177
+      inSlope: -0.18305564
+      outSlope: -0.18305564
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.20197046
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  InitialEnemyHealth: 1
+  EnemyColors:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0, g: 0.0009315014, b: 1, a: 1}
+  - {r: 0.95869803, g: 1, b: 0, a: 1}
+  - {r: 0, g: 1, b: 0.12943077, a: 1}
   BackgroundColor: {r: 0, g: 0.13997865, b: 1, a: 1}

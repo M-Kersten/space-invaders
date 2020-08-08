@@ -6,8 +6,8 @@ public class LevelSettings : ScriptableObject
     [Header("Difficulty")]
     public int GridRows;
     public int GridCollumns;
-    public float EnemySpeed;
+    public AnimationCurve EnemySpeed;
+    public int InitialEnemyHealth;
     [Header("Visual")]
-    public Color[] EnemyColors;    
-    public Color BackgroundColor;
+    public Color[] EnemyColors;
 }

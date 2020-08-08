@@ -5,4 +5,5 @@ public class InputSettings : ScriptableObject
 {
     public KeyCode ShootButton;
     public string movementAxis;
+    public KeyCode PauseMenuButton;
 }
