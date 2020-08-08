@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour, IDamagable
     public Vector2Int Index { get; private set; }
     public bool CurrentlyShooting;
     public bool ShootingEnabled;
+
     public int Health
     {
         get { return health; }
@@ -47,6 +48,7 @@ public class Enemy : MonoBehaviour, IDamagable
     {        
         GetComponent<DamagableCollider>().Init(this);
         shotDelay = Random.Range(minMaxShotDelay.x, minMaxShotDelay.y);
+        ShootingEnabled = true;
     }
 
     private void Update()

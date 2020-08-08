@@ -21,7 +21,7 @@ public class EnemyGrid : StateBehaviour
     private float direction;
     private HashSet<Enemy> matchedEnemies = new HashSet<Enemy>();
 
-    private int TotalEnemies => (int)(settings.Levels[settings.CurrentLevel].GridCollumns * settings.Levels[settings.CurrentLevel].GridRows);
+    private int TotalEnemies => settings.Levels[settings.CurrentLevel].GridCollumns * settings.Levels[settings.CurrentLevel].GridRows;
 
     private void Update()
     {
@@ -78,7 +78,9 @@ public class EnemyGrid : StateBehaviour
 
     private Enemy CreateNewEnemy(int x, int y)
     {
-        Vector3 enemyPosition = new Vector3(x * (enemyPrefab.transform.localScale.x * settings.Levels[settings.CurrentLevel].gridGapSize), 0, y * (enemyPrefab.transform.localScale.y * settings.Levels[settings.CurrentLevel].gridGapSize));
+        Vector3 enemyPosition = new Vector3((x - settings.Levels[settings.CurrentLevel].GridCollumns / 2)  * (enemyPrefab.transform.localScale.x * settings.Levels[settings.CurrentLevel].gridGapSize), 
+                                            0, 
+                                            y * (enemyPrefab.transform.localScale.y * settings.Levels[settings.CurrentLevel].gridGapSize));
         Enemy newEnemy = Instantiate(enemyPrefab.gameObject, gridInstance.transform.position + enemyPosition, enemyPrefab.gameObject.transform.rotation, gridInstance.transform).GetComponent<Enemy>();
 
         activeEnemies[x, y] = newEnemy;
@@ -117,7 +119,9 @@ public class EnemyGrid : StateBehaviour
 
             if (ActiveEnemies() <= 0)
             {
-                settings.CurrentLevel++;
+                if (settings.CurrentLevel < settings.Levels.Length)
+                    settings.CurrentLevel++;
+
                 ResetGrid();
                 SpawnGrid();
             }            
