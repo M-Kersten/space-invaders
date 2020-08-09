@@ -7,7 +7,7 @@ using UnityEngine;
 public class Wall : StateBehaviour, IDamagable
 {
     [SerializeField]
-    private GameSettings settings;
+    private LevelCollection settings;
 
     public int Health {
         get { return health; } 
@@ -44,11 +44,11 @@ public class Wall : StateBehaviour, IDamagable
 
     public override void UpdateState(GameState state, GameState oldState)
     {
-        if ((oldState == GameState.Stopped || oldState == GameState.Lost) && state == GameState.Playing)
+        if ((oldState == GameState.Stopped || oldState == GameState.Lost || oldState == GameState.NextLevel) && state == GameState.Playing)
         {
             transform.localPosition += Vector3.down * 2;
             LeanTween.moveLocalY(gameObject, 0, .5f).setEase(LeanTweenType.easeInOutQuart);
-            Health = settings.WallHealth;
+            Health = settings.Levels[settings.CurrentLevel].WallHealth;
         }
     }
 }

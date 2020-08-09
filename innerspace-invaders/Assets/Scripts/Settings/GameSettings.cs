@@ -10,8 +10,4 @@ public class GameSettings : ScriptableObject
     public float PlayerShotCooldown;
     public int InitialPlayerHealth;
     public Vector2Int PlayerBounds;
-    [Header("Enemy")]    
-    public int InitialEnemyHealth;
-    public float enemySpeed;
-    public int WallHealth;
 }

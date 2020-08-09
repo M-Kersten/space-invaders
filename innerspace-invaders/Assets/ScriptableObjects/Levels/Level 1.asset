@@ -49,6 +49,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   InitialEnemyHealth: 1
   gridGapSize: 3
+  WallHealth: 5
   EnemyColors:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0, g: 0.0009315014, b: 1, a: 1}

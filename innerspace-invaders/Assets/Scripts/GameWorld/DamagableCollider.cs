@@ -14,13 +14,20 @@ public class DamagableCollider : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag(Constants.BULLET))
+            BulletHitDetected(other);
+    }
+
+    /// <summary>
+    /// When a bullet hit is detected, check whether the damagable is detecting the bullet type and act accordingly
+    /// </summary>
+    /// <param name="other"></param>
+    private void BulletHitDetected(Collider other)
+    {
+        IBullet bullet = other.gameObject.GetComponent<IBullet>();
+        if (bullet.BulletType == damagable.AffectedBulletType)
         {
-            IBullet bullet = other.gameObject.GetComponent<IBullet>();
-            if (bullet.BulletType == damagable.AffectedBulletType)
-            {
-                bullet.Explode();
-                damagable.TakeDamage();
-            }
+            bullet.Explode();
+            damagable.TakeDamage();
         }
     }
 }

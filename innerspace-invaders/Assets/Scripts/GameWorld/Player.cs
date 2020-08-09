@@ -75,7 +75,7 @@ public class Player : StateBehaviour, IDamagable
 
     public override void UpdateState(GameState state, GameState oldState)
     {
-        if ((CurrentState == GameState.Stopped || CurrentState == GameState.Lost) && state == GameState.Playing)
+        if ((oldState == GameState.Stopped || oldState == GameState.Lost | oldState == GameState.NextLevel) && state == GameState.Playing)
         {
             Health = settings.InitialPlayerHealth;
             transform.position = startingPosition;

@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28469e360a3cd7e4bbd10fbb2544d6fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settings: {fileID: 11400000, guid: 87cd910de88b38d408211afa439b5f37, type: 2}
+  settings: {fileID: 11400000, guid: 4fa4cafddac5f9c4d864e3e4c0431bc5, type: 2}
   affectedBulletType: 1
 --- !u!114 &8990240628845740633
 MonoBehaviour:

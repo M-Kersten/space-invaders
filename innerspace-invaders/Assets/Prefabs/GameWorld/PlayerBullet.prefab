@@ -277,8 +277,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47fb901dac7b3eb42b389dcda0a4c74f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxLifeTime: 3
   speed: 10
-  maxLifeTime: 2
 --- !u!33 &4530037897962823610
 MeshFilter:
   m_ObjectHideFlags: 0

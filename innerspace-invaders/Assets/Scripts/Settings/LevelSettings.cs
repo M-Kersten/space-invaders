@@ -9,6 +9,7 @@ public class LevelSettings : ScriptableObject
     public AnimationCurve EnemySpeed;
     public int InitialEnemyHealth;
     public float gridGapSize;
+    public int WallHealth;
     [Header("Visual")]
     public Color[] EnemyColors;
 }

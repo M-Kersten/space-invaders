@@ -6,12 +6,11 @@ public abstract class Bullet : MonoBehaviour, IBullet
     public Action Exploded;    
     public GameObject Object => gameObject;
     public BulletType BulletType { get; private set; }
+    public float MaxLifeTime;
 
     [SerializeField]
     private float speed;
-    [SerializeField]
-    private float maxLifeTime;
-
+    
     private float currentLifeTime;
 
     private void OnEnable() => currentLifeTime = 0;
@@ -25,7 +24,7 @@ public abstract class Bullet : MonoBehaviour, IBullet
     {
         transform.Translate(Vector3.forward * Time.deltaTime * speed, Space.Self);
         currentLifeTime += Time.deltaTime;
-        if (currentLifeTime > maxLifeTime)
+        if (currentLifeTime > MaxLifeTime)
             Explode();        
     }
 

@@ -13,11 +13,12 @@ public abstract class GenericObjectPool<T> : MonoBehaviour where T : Component
     private T prefab;
 
     [SerializeField]
-    private int maxObjectLimit;
+    private int maxObjectLimit = 1;
 
-    private bool ActiveObjectLimitReached => activeObjects >= maxObjectLimit;
+    private bool ActiveObjectLimitReached => ActiveObjectAmount >= maxObjectLimit;
     private Queue<T> objects = new Queue<T>();
-    private int activeObjects;
+    [HideInInspector]
+    public int ActiveObjectAmount;
 
     private void Awake() => Instance = this;
 
@@ -26,7 +27,7 @@ public abstract class GenericObjectPool<T> : MonoBehaviour where T : Component
         if (ActiveObjectLimitReached)
             return null;
 
-        activeObjects++;
+        ActiveObjectAmount++;
         if (objects.Count == 0)
             AddObject();
         return objects.Dequeue();
@@ -34,9 +35,14 @@ public abstract class GenericObjectPool<T> : MonoBehaviour where T : Component
 
     public void ReturnToPool(T returnObject)
     {
-        activeObjects--;
+        ActiveObjectAmount--;
         returnObject.gameObject.SetActive(false);
         objects.Enqueue(returnObject);
+    }
+
+    public void SetNewPrefab(T newPrefab)
+    {
+        prefab = newPrefab;
     }
 
     private void AddObject()
