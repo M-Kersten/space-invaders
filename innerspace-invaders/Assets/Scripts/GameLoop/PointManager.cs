@@ -57,7 +57,7 @@ public class PointManager : StateBehaviour
     {
         if (state == GameState.Stopped || state == GameState.Lost)
             UpdateHighScore();
-        if (state == GameState.Playing && oldState != GameState.Paused)
+        if (state == GameState.Playing && oldState != GameState.Paused && oldState != GameState.NextLevel)
             ResetScore();
     }
 
