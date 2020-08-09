@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Class for spawning new bullets in the bulletpools
+/// </summary>
 public class BulletSpawner : MonoBehaviour
 {
     [SerializeField]
@@ -23,6 +26,9 @@ public class BulletSpawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Initialize a new bullet on the transform position
+    /// </summary>
     public void Shoot()
     {
         if (!readyToFire)
@@ -42,7 +48,7 @@ public class BulletSpawner : MonoBehaviour
             shot.Object.SetActive(true);
         }
     }
-
+    #region Debug
     /// <summary>
     /// Draw the firing direction in the gameworld to configure the spawning more easily
     /// </summary>
@@ -54,4 +60,5 @@ public class BulletSpawner : MonoBehaviour
     }
         
     private void OnDrawGizmos() => DebugShootDirection();
+    #endregion
 }

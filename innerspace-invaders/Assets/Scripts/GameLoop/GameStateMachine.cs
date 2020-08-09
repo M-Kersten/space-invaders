@@ -1,16 +1,24 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Central manager for controlling the gameloop
+/// </summary>
 public class GameStateMachine : MonoBehaviour
-{    
+{
     [System.Serializable]
     private struct StateBasedObject
     {
         public GameObject stateObject;
         public GameState activeStates;
     }
-
+    /// <summary>
+    /// An array of objects that are able to change the game state
+    /// </summary>
     [SerializeField]
     private StateBehaviour[] stateChangers;
+    /// <summary>
+    /// An array of objects that react to state changes
+    /// </summary>
     [SerializeField]
     private StateBasedObject[] stateBasedObjects;
 
@@ -33,6 +41,10 @@ public class GameStateMachine : MonoBehaviour
             item.SetState -= SetState;
     }
 
+    /// <summary>
+    /// Set a new state for the game loop
+    /// </summary>
+    /// <param name="state"></param>
     public void SetState(GameState state)
     {
         foreach (StateBasedObject obj in stateBasedObjects)

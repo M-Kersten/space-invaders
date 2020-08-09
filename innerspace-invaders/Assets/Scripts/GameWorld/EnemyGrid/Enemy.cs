@@ -23,10 +23,10 @@ public class Enemy : MonoBehaviour, IDamagable
         }
     }
     private int health;
+
     public BulletType AffectedBulletType { get => affectedBulletType; set => affectedBulletType = value; }
 
     public Action<int> HealtChanged { get; set; }
-
     public Action<Color> ColorChanged;
     public Action<Enemy> EnemyKilled;
 
@@ -46,6 +46,7 @@ public class Enemy : MonoBehaviour, IDamagable
 
     private void Start()
     {        
+        // initialize the collider attached to this enemy
         GetComponent<DamagableCollider>().Init(this);
         shotDelay = Random.Range(minMaxShotDelay.x, minMaxShotDelay.y);
         ShootingEnabled = true;

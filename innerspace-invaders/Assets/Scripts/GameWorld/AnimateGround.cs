@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Attach to grid plane to simulate the ground moving
+/// </summary>
 [RequireComponent(typeof(Renderer))]
 public class AnimateGround : MonoBehaviour
 {
@@ -10,10 +13,7 @@ public class AnimateGround : MonoBehaviour
 
     private float currentOffset;
 
-    private void Start()
-    {
-        renderer = GetComponent<Renderer>();
-    }
+    private void Start() => renderer = GetComponent<Renderer>();
 
     void Update()
     {

@@ -3,12 +3,14 @@ using UnityEngine;
 
 public abstract class Bullet : MonoBehaviour, IBullet
 {
+    public Action Exploded;    
+    public GameObject Object => gameObject;
+    public BulletType BulletType { get; private set; }
+
     [SerializeField]
     private float speed;
     [SerializeField]
     private float maxLifeTime;
-
-    public Action Exploded;
 
     private float currentLifeTime;
 
@@ -16,6 +18,9 @@ public abstract class Bullet : MonoBehaviour, IBullet
 
     private void Update() => Move();
 
+    /// <summary>
+    /// Moves the bullet every frame
+    /// </summary>
     public void Move()
     {
         transform.Translate(Vector3.forward * Time.deltaTime * speed, Space.Self);
@@ -24,19 +29,18 @@ public abstract class Bullet : MonoBehaviour, IBullet
             Explode();        
     }
 
+    /// <summary>
+    /// Initialize the bullet at a new position and type
+    /// </summary>
     public void Initialize(Transform setTransform, BulletType type)
     {
         transform.position = setTransform.position;
         transform.rotation = setTransform.rotation;
         BulletType = type;
-    }
+    }    
 
-    public GameObject Object => gameObject;
-
-    public BulletType BulletType { get; private set; }
-
-    public virtual void Explode()
-    {
-        Exploded?.Invoke();
-    }
+    /// <summary>
+    /// Invoke the explode action
+    /// </summary>
+    public virtual void Explode() => Exploded?.Invoke();
 }

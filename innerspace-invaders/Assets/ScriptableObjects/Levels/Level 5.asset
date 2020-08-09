@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c8eb40e60ed7244da242ca3dc4add6f, type: 3}
+  m_Name: Level 5
+  m_EditorClassIdentifier: 
+  GridRows: 4
+  GridCollumns: 8
+  EnemySpeed:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.01225476
+      value: 7.483145
+      inSlope: -0.36971804
+      outSlope: -0.36971804
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.28676364
+    - serializedVersion: 3
+      time: 0.51720434
+      value: 7.4536643
+      inSlope: -0.04865157
+      outSlope: -0.04865157
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.23432887
+    - serializedVersion: 3
+      time: 0.97702026
+      value: 2.0142212
+      inSlope: -0.18305564
+      outSlope: -0.18305564
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.20197046
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  InitialEnemyHealth: 2
+  gridGapSize: 5
+  EnemyColors:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0, g: 0.0009315014, b: 1, a: 1}
+  - {r: 0.95869803, g: 1, b: 0, a: 1}
+  - {r: 0, g: 1, b: 0.12943077, a: 1}

@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(DamagableCollider))]
 public class Player : StateBehaviour, IDamagable
 {    
-    [SerializeField]
-    private BulletSpawner bulletSpawner;
-    [SerializeField]
-    private GameSettings settings;
-
     public int Health
     {
         get { return health; }
@@ -22,22 +15,22 @@ public class Player : StateBehaviour, IDamagable
                 Die();
         }
     }
-    private int health;
-    private float speed;
-
     public BulletType AffectedBulletType { get => affectedBulletType; set => affectedBulletType = value; }
-
     public Action<int> HealtChanged { get; set; }
 
     [SerializeField]
     private BulletType affectedBulletType;
+    [SerializeField]
+    private BulletSpawner bulletSpawner;
+    [SerializeField]
+    private GameSettings settings;
 
     private Vector3 startingPosition;
+    private int health;
 
     private void Start()
     {
         startingPosition = transform.position;
-        speed = settings.PlayerSpeed;
         GetComponent<DamagableCollider>().Init(this);
     }
 
@@ -67,7 +60,7 @@ public class Player : StateBehaviour, IDamagable
         if ((transform.position.x > settings.PlayerBounds.y && direction > 0) || (transform.position.x < settings.PlayerBounds.x && direction < 0))
             return;
 
-        transform.Translate(Vector3.right * Time.deltaTime * direction * speed, Space.World);
+        transform.Translate(Vector3.right * Time.deltaTime * direction * settings.PlayerSpeed, Space.World);
     }
 
     public void TakeDamage()

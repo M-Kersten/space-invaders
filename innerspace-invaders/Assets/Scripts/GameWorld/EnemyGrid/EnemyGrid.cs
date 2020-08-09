@@ -60,6 +60,8 @@ public class EnemyGrid : StateBehaviour
     {
         Destroy(gridInstance);
         activeEnemies = new Enemy[0, 0];
+        SpawnGrid();
+        direction = 1;
     }
 
     private int ActiveEnemies()
@@ -117,14 +119,9 @@ public class EnemyGrid : StateBehaviour
             PointManager.Instance.AddScore(matchedEnemies.Count * CustomMaths.CalculateFibonacci(matchedEnemies.Count) * 10);
             matchedEnemies.Clear();
 
-            if (ActiveEnemies() <= 0)
-            {
-                if (settings.CurrentLevel < settings.Levels.Length)
-                    settings.CurrentLevel++;
-
-                ResetGrid();
-                SpawnGrid();
-            }            
+            if (ActiveEnemies() <= 0)            
+                SetState?.Invoke(GameState.NextLevel);
+                  
             return;
         }
 
@@ -155,21 +152,18 @@ public class EnemyGrid : StateBehaviour
 
     public override void UpdateState(GameState state, GameState oldState)
     {
-        if (CurrentState == GameState.Lost && state == GameState.Playing)
+        if ((oldState == GameState.Lost || oldState == GameState.Stopped) && state == GameState.Playing)
         {
             settings.CurrentLevel = 0;
             ResetGrid();
-            SpawnGrid();
-            direction = 1;
         }
-        else if (CurrentState == GameState.Stopped && state == GameState.Playing)
+        else if (oldState == GameState.NextLevel && state == GameState.Playing)
         {
-            settings.CurrentLevel = 0;
-            SpawnGrid();
-            direction = 1;
-        }
-        else if (CurrentState != GameState.Stopped && state == GameState.Stopped)
+            if (settings.CurrentLevel < settings.Levels.Length)
+                settings.CurrentLevel++;
             ResetGrid();
+        }
+            
 
         foreach (Enemy enemy in activeEnemies)
         {

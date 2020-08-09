@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// Animates camera rotation on enable
+/// </summary>
 public class AnimateInCamera : MonoBehaviour
 {
 
