@@ -17,6 +17,7 @@ public class Player : StateBehaviour, IDamagable
     }
     public BulletType AffectedBulletType { get => affectedBulletType; set => affectedBulletType = value; }
     public Action<int> HealtChanged { get; set; }
+    public Action<float> DirectionChanged { get; set; }
 
     [SerializeField]
     private BulletType affectedBulletType;
@@ -44,7 +45,10 @@ public class Player : StateBehaviour, IDamagable
         if (CurrentState != GameState.Playing)
             return;
 
-        AddVelocity(Input.GetAxis(settings.Input.movementAxis));
+        float direction = Input.GetAxis(settings.Input.movementAxis);
+        
+        AddVelocity(direction);
+        DirectionChanged?.Invoke(direction);
 
         if (Input.GetKeyDown(settings.Input.ShootButton))
             bulletSpawner.Shoot();
