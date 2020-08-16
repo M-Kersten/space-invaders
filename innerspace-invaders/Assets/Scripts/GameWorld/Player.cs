@@ -48,7 +48,7 @@ public class Player : StateBehaviour, IDamagable
         float direction = Input.GetAxis(settings.Input.movementAxis);
         
         AddVelocity(direction);
-        DirectionChanged?.Invoke(direction);
+        DirectionChanged(direction);
 
         if (Input.GetKeyDown(settings.Input.ShootButton))
             bulletSpawner.Shoot();
@@ -69,7 +69,8 @@ public class Player : StateBehaviour, IDamagable
 
     public void TakeDamage()
     {
-        Health--;        
+        if (CurrentState == GameState.Playing)        
+            Health--;        
     }
 
     public void Die()
@@ -79,6 +80,7 @@ public class Player : StateBehaviour, IDamagable
 
     public override void UpdateState(GameState state, GameState oldState)
     {
+        AudioManager.Instance.PlayClip(0);
         if ((oldState == GameState.Stopped || oldState == GameState.Lost | oldState == GameState.NextLevel) && state == GameState.Playing)
         {
             Health = settings.InitialPlayerHealth;

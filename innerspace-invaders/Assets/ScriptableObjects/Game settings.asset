@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Input: {fileID: 11400000, guid: fd3c7d6b7a7c5d44abda98dbfcfaecea, type: 2}
   PlayerSpeed: 10
+  PlayerShotCooldown: 0
   InitialPlayerHealth: 3
-  PlayerBounds: {x: -10, y: 10}
-  InitialEnemyHealth: 1
-  enemySpeed: 5
-  WallHealth: 5
+  PlayerBounds: {x: -11, y: 11}

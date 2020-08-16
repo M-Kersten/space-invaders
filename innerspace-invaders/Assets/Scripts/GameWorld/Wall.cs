@@ -34,7 +34,7 @@ public class Wall : StateBehaviour, IDamagable
 
     public void Die()
     {
-        LeanTween.moveLocalY(gameObject, -2, .5f).setEase(LeanTweenType.easeInOutQuart);
+        LeanTween.moveLocalY(gameObject, -2, .8f).setEase(LeanTweenType.easeInOutQuart);
     }
 
     public void TakeDamage()

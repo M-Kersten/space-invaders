@@ -8,6 +8,8 @@ public class AnimateGround : MonoBehaviour
 {
     private Renderer renderer;
 
+    [SerializeField] private string textureName;
+    
     [SerializeField]
     private float speed;
 
@@ -18,6 +20,6 @@ public class AnimateGround : MonoBehaviour
     void Update()
     {
         currentOffset += Time.deltaTime * speed;
-        renderer.material.mainTextureOffset = new Vector2(0, currentOffset);
+        renderer.material.SetVector(textureName, new Vector2(0, currentOffset));
     }
 }

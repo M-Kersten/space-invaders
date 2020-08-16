@@ -27,7 +27,7 @@ public class DamagableCollider : MonoBehaviour
         if (bullet.BulletType == damagable.AffectedBulletType)
         {
             bullet.Explode();
-            damagable.TakeDamage();
+            damagable.TakeDamage();            
         }
     }
 }

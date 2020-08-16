@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c8eb40e60ed7244da242ca3dc4add6f, type: 3}
   m_Name: Level 2
   m_EditorClassIdentifier: 
-  GridRows: 5
-  GridCollumns: 12
+  GridRows: 3
+  GridCollumns: 7
   EnemySpeed:
     serializedVersion: 2
     m_Curve:
@@ -48,7 +48,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   InitialEnemyHealth: 1
-  gridGapSize: 4
+  gridGapSize: 2.5
   WallHealth: 5
   EnemyColors:
   - {r: 1, g: 0, b: 0, a: 1}

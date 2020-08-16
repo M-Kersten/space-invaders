@@ -1,4 +1,5 @@
-﻿using Invaders.Tools;
+﻿using System;
+using Invaders.Tools;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -20,6 +21,9 @@ public class EnemyGrid : StateBehaviour
     private GameObject gridInstance;
     private float direction;
     private HashSet<Enemy> matchedEnemies = new HashSet<Enemy>();
+    private Vector2Int minMaxCollums;
+
+    public Action EnemyKilled;
 
     private int TotalEnemies => settings.Levels[settings.CurrentLevel].GridCollumns * settings.Levels[settings.CurrentLevel].GridRows;
 
@@ -32,19 +36,23 @@ public class EnemyGrid : StateBehaviour
     {
         if (gridInstance == null || CurrentState != GameState.Playing)
             return;
-
-        if ((gridInstance.transform.position.x > gameSettings.PlayerBounds.y && direction > 0) || (gridInstance.transform.position.x < gameSettings.PlayerBounds.x && direction < 0))
+        
+        Vector2 offset = new Vector2(minMaxCollums.x - settings.Levels[settings.CurrentLevel].GridCollumns / 2, minMaxCollums.y - settings.Levels[settings.CurrentLevel].GridCollumns / 2);
+        
+        if ((gridInstance.transform.position.x + offset.y * settings.Levels[settings.CurrentLevel].gridGapSize / 2) > gameSettings.PlayerBounds.y && direction > 0 || 
+            ((gridInstance.transform.position.x + offset.x * settings.Levels[settings.CurrentLevel].gridGapSize / 2) < gameSettings.PlayerBounds.x && direction < 0))
         {
             direction *= -1;
             gridInstance.transform.Translate(Vector3.back, Space.Self);
         }
-        gridInstance.transform.Translate((Vector3.right * Time.deltaTime * direction * settings.Levels[settings.CurrentLevel].EnemySpeed.Evaluate((float)((float)ActiveEnemies() / (float)TotalEnemies))), Space.Self);
+        gridInstance.transform.Translate(Vector3.right * Time.deltaTime * direction * settings.Levels[settings.CurrentLevel].EnemySpeed.Evaluate((float)((float)ActiveEnemies() / (float)TotalEnemies)), Space.Self);
     }
 
     private void SpawnGrid()
     {
         gridInstance = Instantiate(new GameObject(), enemyRoot);
-        
+        minMaxCollums = new Vector2Int(0, settings.Levels[settings.CurrentLevel].GridCollumns);
+
         activeEnemies = new Enemy[settings.Levels[settings.CurrentLevel].GridCollumns, settings.Levels[settings.CurrentLevel].GridRows];
 
         for (int y = 0; y < settings.Levels[settings.CurrentLevel].GridRows; y++)
@@ -94,6 +102,7 @@ public class EnemyGrid : StateBehaviour
 
     private void KillNeighbours(Enemy enemy)
     {
+        EnemyKilled?.Invoke();
         // remove the enemy reference from the grid array
         activeEnemies[enemy.Index.x, enemy.Index.y] = null;
 
@@ -121,13 +130,34 @@ public class EnemyGrid : StateBehaviour
 
             if (ActiveEnemies() <= 0)            
                 SetState?.Invoke(GameState.NextLevel);
-                  
+
+            SetActiveCollums();
             return;
         }
 
         // get all valid neighbours and destroy them
         foreach (Enemy neighbour in GetNeighbours(enemy))
-            neighbour.Die();        
+            neighbour.Die();
+
+        SetActiveCollums();
+    }
+
+    private void SetActiveCollums()
+    {
+        minMaxCollums = new Vector2Int(settings.Levels[settings.CurrentLevel].GridCollumns, 0);
+        for (int x = 0; x < settings.Levels[settings.CurrentLevel].GridCollumns; x++)
+        {
+            for (int y = 0; y < settings.Levels[settings.CurrentLevel].GridRows; y++)
+            {
+                if (activeEnemies[x, y] != null)
+                {
+                    if (minMaxCollums.x == settings.Levels[settings.CurrentLevel].GridCollumns)
+                        minMaxCollums.x = x;
+                    
+                    minMaxCollums.y = x;
+                }
+            }
+        }
     }
 
     public IEnumerable<Enemy> GetNeighbours(Enemy checkEnemy)

@@ -36,6 +36,7 @@ public abstract class Bullet : MonoBehaviour, IBullet
         transform.position = setTransform.position;
         transform.rotation = setTransform.rotation;
         BulletType = type;
+        AudioManager.Instance.PlayClip(2);
     }    
 
     /// <summary>

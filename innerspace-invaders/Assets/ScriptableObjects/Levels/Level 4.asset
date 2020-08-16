@@ -48,8 +48,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   InitialEnemyHealth: 2
-  gridGapSize: 5
-  WallHealth: 5
+  gridGapSize: 2.5
+  WallHealth: 4
   EnemyColors:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0, g: 0.0009315014, b: 1, a: 1}

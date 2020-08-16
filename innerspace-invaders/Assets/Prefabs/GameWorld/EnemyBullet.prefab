@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2307352044819850858
 Transform:
   m_ObjectHideFlags: 0
@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 248bfc74fd6494547b936d4f144bc345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxLifeTime: 3
+  MaxLifeTime: 4
   speed: 5
 --- !u!33 &4530037897962823610
 MeshFilter:
@@ -213,7 +213,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f0fb85464a2ef7c47ae2c38eebddfd05, type: 2}
+  - {fileID: 2100000, guid: f9c2a4283b69de54395ecd25f10bf652, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

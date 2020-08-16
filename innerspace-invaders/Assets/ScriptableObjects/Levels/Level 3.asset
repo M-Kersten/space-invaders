@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level 3
   m_EditorClassIdentifier: 
   GridRows: 5
-  GridCollumns: 13
+  GridCollumns: 9
   EnemySpeed:
     serializedVersion: 2
     m_Curve:
@@ -48,7 +48,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   InitialEnemyHealth: 1
-  gridGapSize: 5
+  gridGapSize: 2.5
   WallHealth: 5
   EnemyColors:
   - {r: 1, g: 0, b: 0, a: 1}

@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class PointManager : StateBehaviour
 {
-    // due to time constraints, decided to implement score traking the easy way with a singleton, please forgive me :P
+    // due to time constraints, decided to implement score tracking the easy way with a singleton, please forgive me :P
     #region Singleton instance
     public static PointManager Instance { get; private set; }
     #endregion

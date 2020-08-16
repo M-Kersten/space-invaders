@@ -8,6 +8,10 @@ public class PlayerVisualizer : MonoBehaviour
     private Transform carTransform;
     [SerializeField]
     private float smoothingDelay;
+
+    [SerializeField] private float steerAngle;
+    
+    private float direction;
     
     private void OnEnable()
     {
@@ -21,12 +25,12 @@ public class PlayerVisualizer : MonoBehaviour
 
     private void Update()
     {
-        float angle = Mathf.MoveTowardsAngle(carTransform.rotation.y, 0, Time.deltaTime * (1/smoothingDelay));
+        float angle = Mathf.MoveTowardsAngle(direction, 0, Time.deltaTime * (1/smoothingDelay));
         carTransform.eulerAngles = new Vector3(0,angle,0);
     }
 
     private void RotateCar(float steerDirection)
     {
-        carTransform.Rotate(Vector3.up, steerDirection * 10);
+        direction = steerDirection * steerAngle;
     }
 }
