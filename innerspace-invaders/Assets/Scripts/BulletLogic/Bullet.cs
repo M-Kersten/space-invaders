@@ -25,7 +25,7 @@ public abstract class Bullet : MonoBehaviour, IBullet
         transform.Translate(Vector3.forward * Time.deltaTime * speed, Space.Self);
         currentLifeTime += Time.deltaTime;
         if (currentLifeTime > MaxLifeTime)
-            Explode();        
+            Explode();
     }
 
     /// <summary>
