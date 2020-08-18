@@ -27,8 +27,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.28676364
     - serializedVersion: 3
-      time: 0.51720434
-      value: 6.443531
+      time: 0.46636206
+      value: 3.8784218
       inSlope: -0.04865157
       outSlope: -0.04865157
       tangentMode: 0
@@ -37,7 +37,7 @@ MonoBehaviour:
       outWeight: 0.23432887
     - serializedVersion: 3
       time: 0.99508667
-      value: 0.50177
+      value: 0.98535156
       inSlope: -0.18305564
       outSlope: -0.18305564
       tangentMode: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   InitialEnemyHealth: 2
-  gridGapSize: 2.5
+  gridGapSize: 3
   WallHealth: 4
   EnemyColors:
   - {r: 1, g: 0, b: 0, a: 1}

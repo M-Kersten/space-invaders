@@ -31,27 +31,10 @@ public class Player : StateBehaviour, IDamagable
 
     private void Start()
     {
+        InputManager.Instance.processMove += AddVelocity;
+        InputManager.Instance.processShoot += bulletSpawner.Shoot;
         startingPosition = transform.position;
         GetComponent<DamagableCollider>().Init(this);
-    }
-
-    private void Update() => ProcessInput();
-
-    /// <summary>
-    /// Gets the user input and acts accordingly
-    /// </summary>
-    private void ProcessInput()
-    {
-        if (CurrentState != GameState.Playing)
-            return;
-
-        float direction = Input.GetAxis(settings.Input.movementAxis);
-        
-        AddVelocity(direction);
-        DirectionChanged(direction);
-
-        if (Input.GetKeyDown(settings.Input.ShootButton))
-            bulletSpawner.Shoot();
     }
 
     /// <summary>
@@ -60,6 +43,7 @@ public class Player : StateBehaviour, IDamagable
     /// <param name="direction"></param>
     private void AddVelocity(float direction)
     {
+        DirectionChanged(direction);
         // check for out of bounds
         if ((transform.position.x > settings.PlayerBounds.y && direction > 0) || (transform.position.x < settings.PlayerBounds.x && direction < 0))
             return;
@@ -69,8 +53,11 @@ public class Player : StateBehaviour, IDamagable
 
     public void TakeDamage()
     {
-        if (CurrentState == GameState.Playing)        
-            Health--;        
+        if (CurrentState == GameState.Playing)
+        {
+            Health--;
+            VibrationManager.VibrateError();
+        }
     }
 
     public void Die()

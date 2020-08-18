@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Level 3
   m_EditorClassIdentifier: 
   GridRows: 5
-  GridCollumns: 9
+  GridCollumns: 8
   EnemySpeed:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.01225476
-      value: 6.473012
+      time: 0.004991576
+      value: 5.4427614
       inSlope: -0.36971804
       outSlope: -0.36971804
       tangentMode: 0
@@ -27,8 +27,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0.28676364
     - serializedVersion: 3
-      time: 0.51720434
-      value: 6.443531
+      time: 0.39374548
+      value: 4.9507217
       inSlope: -0.04865157
       outSlope: -0.04865157
       tangentMode: 0
@@ -36,8 +36,8 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.23432887
     - serializedVersion: 3
-      time: 0.99508667
-      value: 0.50177
+      time: 0.9878235
+      value: 1.0379028
       inSlope: -0.18305564
       outSlope: -0.18305564
       tangentMode: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   InitialEnemyHealth: 1
-  gridGapSize: 2.5
+  gridGapSize: 3
   WallHealth: 5
   EnemyColors:
   - {r: 1, g: 0, b: 0, a: 1}

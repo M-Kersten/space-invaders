@@ -21,12 +21,7 @@ public class UIManager : MonoBehaviour
         quitButton.onClick.AddListener(Application.Quit);
         foreach (Button button in playButtons)
             button.onClick.AddListener(PlayGame);
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(settings.Input.PauseMenuButton))
-            SwitchState();
+        InputManager.Instance.processPause += SwitchState;
     }
 
     private void StopGame() => stateMachine.SetState(GameState.Stopped);
